@@ -1,0 +1,327 @@
+SELECT * FROM qa1_allocation.alloc_status_dim_3
+
+INSERT INTO qa1_allocation.alloc_status_dim_3
+SELECT * FROM dev_allocation.alloc_status_dim_3 
+
+SELECT * FROM qa1_allocation.alloc_status_dim
+
+INSERT INTO qa1_allocation.alloc_status_dim 
+SELECT alloc_status_id FROM dev_allocation.alloc_status_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.capability_dim_3
+
+INSERT INTO qa1_allocation.capability_dim_3 
+SELECT * FROM dev_allocation.capability_dim_3 
+
+SELECT * FROM qa1_allocation.capability_dim cd 
+
+INSERT INTO qa1_allocation.capability_dim 
+SELECT capability_id FROM qa1_allocation.capability_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.dc_data dd 
+
+INSERT INTO qa1_allocation.dc_data 
+SELECT * FROM dev_allocation.dc_data 
+
+SELECT * FROM qa1_allocation.dc_dim_3 dd 
+
+INSERT INTO qa1_allocation.dc_dim_3 
+SELECT * FROM dev_allocation.dc_dim_3 
+
+SELECT * FROM qa1_allocation.dc_dim dd 
+
+INSERT INTO qa1_allocation.dc_dim 
+SELECT dc_id FROM qa1_allocation.dc_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.dimensions d 
+
+INSERT INTO qa1_allocation.dimensions 
+SELECT * FROM dev_allocation.dimensions 
+
+SELECT * FROM qa1_allocation.dimension_levels dl 
+
+INSERT INTO qa1_allocation.dimension_levels 
+SELECT * FROM dev_allocation.dimension_levels 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.flow_dim_3 fd 
+
+INSERT INTO qa1_allocation.flow_dim_3  
+SELECT * FROM dev_allocation.flow_dim_3  
+
+SELECT * FROM qa1_allocation.flow_dim fd 
+
+INSERT INTO qa1_allocation.flow_dim 
+SELECT flow_id FROM qa1_allocation.flow_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.job_status_dim_3 jsd 
+
+INSERT INTO qa1_allocation.job_status_dim_3 
+SELECT * FROM dev_allocation.job_status_dim_3 
+
+SELECT * FROM qa1_allocation.job_status_dim jsd 
+
+INSERT INTO qa1_allocation.job_status_dim 
+SELECT job_status_id FROM qa1_allocation.job_status_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.location_dim_3 ld 
+
+INSERT INTO qa1_allocation.location_dim_3 
+SELECT * FROM dev_allocation.location_dim_3 
+
+SELECT * FROM qa1_allocation.location_dim ld 
+
+INSERT INTO qa1_allocation.location_dim (location_id,location_level1_id,location_level2_id,location_level3_id)
+SELECT location_id,location_level1_id,location_level2_id,location_level3_id FROM dev_allocation.location_dim 
+
+SELECT * FROM qa1_allocation.location_data ld 
+
+INSERT INTO qa1_allocation.location_data 
+SELECT * FROM dev_allocation.location_data 
+#Data copied from PROD for location_data
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.measures
+
+INSERT INTO qa1_allocation.measures 
+SELECT * FROM dev_allocation.measures 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.opt_method_dim_3 omd 
+
+INSERT INTO qa1_allocation.opt_method_dim_3 
+SELECT * FROM dev_allocation.opt_method_dim_3 
+
+SELECT * FROM qa1_allocation.opt_method_dim omd 
+
+INSERT INTO qa1_allocation.opt_method_dim 
+SELECT opt_method_id FROM qa1_allocation.opt_method_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.opt_status_dim_3 osd 
+
+INSERT INTO qa1_allocation.opt_status_dim_3 
+SELECT * FROM dev_allocation.opt_status_dim_3 
+
+SELECT * FROM qa1_allocation.opt_status_dim osd 
+
+INSERT INTO qa1_allocation.opt_status_dim 
+SELECT opt_status_id FROM qa1_allocation.opt_status_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.pack_data pd 
+
+INSERT INTO qa1_allocation.pack_data 
+SELECT * FROM dev_allocation.pack_data 
+
+SELECT * FROM qa1_allocation.pack_dim_3 pd  
+
+SELECT * FROM qa1_allocation.pack_dim_3 pd 
+JOIN qa1_allocation.pack_data pd2 
+ON pd.pack_id =pd2.pack_id 
+JOIN qa1_allocation.product_dim_3 pd3
+ON pd2.product_id =pd3.product_id  
+
+
+INSERT INTO qa1_allocation.pack_dim_3 
+SELECT * FROM dev_allocation.pack_dim_3 
+
+SELECT * FROM qa1_allocation.pack_dim pd 
+
+INSERT INTO qa1_allocation.pack_dim (pack_id)
+SELECT pack_id FROM qa1_allocation.pack_dim_3 
+
+UPDATE qa1_allocation.pack_dim 
+SET pack_type_id=1
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.parameter_table pt 
+
+INSERT INTO qa1_allocation.parameter_table 
+SELECT * FROM dev_allocation.parameter_table 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.po_dim_3 pd 
+
+INSERT INTO qa1_allocation.po_dim_3 
+SELECT * FROM dev_allocation.po_dim_3
+
+
+SELECT * FROM qa1_allocation.po_dim pd 
+
+INSERT INTO qa1_allocation.po_dim (po_id)
+SELECT po_id FROM qa1_allocation.po_dim_3 
+
+#LOADED USING PROD TABLE AND REMOVED THE NON EXISTING STYLE COLOR IDS FROM product_dim_3 
+SELECT * FROM qa1_allocation.po_data pd 
+
+INSERT INTO qa1_allocation.po_data 
+SELECT * FROM dev_allocation.po_data 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.product_dim_3 pd 
+
+INSERT INTO qa1_allocation.product_dim_3 
+SELECT * FROM dev_allocation.product_dim_3 
+
+SELECT * FROM qa1_allocation.product_dim pd 
+
+INSERT INTO qa1_allocation.product_dim(product_id,style_color_id,product_level1_id,product_level2_id,product_level3_id,size_id)
+SELECT product_id,style_color_id,product_level1_id,product_level2_id,product_level3_id,size_id
+FROM qa1_allocation.product_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.product_location_data
+
+INSERT INTO qa1_allocation.product_location_data 
+SELECT * FROM dev_allocation.product_location_data
+
+#Cross joined product_dim_3 and location_dim_3
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.ratio_group_dim_3 rgd 
+
+INSERT INTO qa1_allocation.ratio_group_dim_3 
+SELECT * FROM dev_allocation.ratio_group_dim_3 
+
+UPDATE qa1_allocation.ratio_group_dim_3
+SET ratio_group_external_id= FLOOR(RAND()* ratio_group_id  +12) 
+
+SELECT * FROM qa1_allocation.ratio_group_dim rgd 
+
+INSERT INTO qa1_allocation.ratio_group_dim (ratio_group_id)
+SELECT ratio_group_id from qa1_allocation.ratio_group_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.ratio_set_dim_3 rsd 
+
+INSERT INTO qa1_allocation.ratio_set_dim_3 
+SELECT * FROM dev_allocation.ratio_set_dim_3 
+#Data copied from prod
+
+SELECT * FROM qa1_allocation.ratio_set_dim rsd 
+
+INSERT INTO qa1_allocation.ratio_set_dim (ratio_set_id)
+SELECT ratio_set_id FROM qa1_allocation.ratio_set_dim_3 
+
+SELECT * FROM qa1_allocation.ratio_set_data rsd 
+
+INSERT INTO qa1_allocation.ratio_set_data 
+SELECT * FROM dev_allocation.ratio_set_data 
+
+DELETE FROM qa1_allocation.ratio_set_data
+ WHERE style_color_id  NOT IN (SELECT style_color_id 
+                        FROM  qa1_allocation.product_dim_3)
+                        
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.style_color_location_data scld 
+
+INSERT INTO qa1_allocation.style_color_location_data(style_color_id,location_id)
+SELECT style_color_id , location_id FROM
+dev_allocation.product_dim_3 
+CROSS JOIN dev_allocation.location_dim_3 
+GROUP BY 1,2
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.table_join_info tji 
+
+INSERT INTO qa1_allocation.table_join_info 
+SELECT * FROM dev_allocation.table_join_info
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.time_dim_3 td 
+
+INSERT INTO qa1_allocation.time_dim_3 
+SELECT * FROM dev_allocation.time_dim_3 
+
+SELECT * FROM qa1_allocation.time_dim td 
+
+INSERT INTO qa1_allocation.time_dim (time_id,week_id,month_id,quarter_id,year_id)
+SELECT time_id , week_id ,month_id , quarter_id ,year_id FROM dev_allocation.time_dim 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.user_roles ur 
+
+INSERT INTO qa1_allocation.user_roles 
+SELECT * FROM dev_allocation.user_roles 
+#Data copied from dev_fars.user_roles 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.validation v 
+
+INSERT INTO qa1_allocation.validation 
+SELECT * FROM dev_allocation.validation 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.vendor_dim_3 vd 
+
+INSERT INTO qa1_allocation.vendor_dim_3 
+SELECT * FROM dev_allocation.vendor_dim_3 
+
+SELECT * FROM qa1_allocation.vendor_dim vd 
+
+INSERT INTO qa1_allocation.vendor_dim(vendor_id)
+SELECT vendor_id FROM qa1_allocation.vendor_dim_3 
+
+---------------------------------------------------------------------------------------------
+
+SELECT * FROM qa1_allocation.worklist_data
+
+INSERT INTO qa1_allocation.worklist_data 
+SELECT * FROM dev_allocation.worklist_data 
+
+
+DELETE FROM qa1_allocation.worklist_data
+ WHERE style_color_id  NOT IN (SELECT style_color_id 
+                        FROM  qa1_allocation.product_dim_3)
+                        
+                        
+/* SELECT COUNT(DISTINCT wapd.style_color_id) , COUNT(DISTINCT pd.style_color_id)  
+FROM qa1_allocation.worklist_alloc_project_data wapd
+JOIN qa1_allocation.product_dim_3 pd 
+ON wapd.style_color_id=pd.style_color_id 
+
+SELECT COUNT(DISTINCT wapd.style_color_id) , COUNT(DISTINCT pd.style_color_id)  
+FROM qa1_allocation.worklist_data wapd
+JOIN qa1_allocation.product_dim_3 pd 
+ON wapd.style_color_id=pd.style_color_id */
+
+SELECT * FROM qa1_allocation.worklist_alloc_project_data wapd 
+                        
+INSERT INTO qa1_allocation.worklist_alloc_project_data 
+SELECT * FROM dev_allocation.worklist_alloc_project_data 
+#Data copied from prod
+
+DELETE FROM qa1_allocation.worklist_alloc_project_data
+ WHERE style_color_id  NOT IN (SELECT style_color_id 
+                        FROM  qa1_allocation.product_dim_3)
+---------------------------------------------------------------------------------------------
+
+
